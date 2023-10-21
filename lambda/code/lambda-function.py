@@ -46,7 +46,9 @@ def lambda_handler(event, context):
     img_url = body["img_url"]
     payload = get_payload(img_url)
 
-    predictor = Predictor(endpoint_name="classification-model", sagemaker_session=sess)
+    predictor = Predictor(
+        endpoint_name="classification-model", sagemaker_session=sess
+        )
     response = predictor.predict(payload)
     result = json.loads(response.decode())
     print("Most likely class: {}".format(np.argmax(result)))
